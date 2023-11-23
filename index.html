@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste-Gis</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" crossorigin=""></script>
+    <style>
+        #mapDIV{
+            height: 700px;
+            width: 700px;
+            border: solid 1px black;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id='mapDIV'>mapa</div>
+    <script>
+        var map = L.map(document.getElementById('mapDIV'), {
+            center: [2.065, -61.5698],
+            zoom: 7
+        });
+        var basemap = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+
+        });
+        basemap.addTo(map);
+
+    //Exibindo coordenadas no mapa
+
+        var coordDIV = document.createElement('div');
+            coordDIV.id = 'mapCoordDIV';
+            coordDIV.style.position = 'absolute';
+            coordDIV.style.bottom = '1px';
+            coordDIV.style.left = '150px';
+            coordDIV.style.zIndex = '900';
+            coordDIV.style.color = '#404040';
+            coordDIV.style.fontFamily = 'Georgia';
+            coordDIV.style.fontSize = '10pt';
+            coordDIV.style.backgroundColor = '#fff';
+
+        document.getElementById('mapDIV').appendChild(coordDIV)
+
+        map.on('mousemove', function(e){
+            var lat = e.latlng.lat.toFixed(3);
+            var lon = e.latlng.lng.toFixed(3);
+            document.getElementById('mapCoordDIV').innerHTML = 'Coordinates: ' + ' ' + lat + ' , ' + lon;
+        });
+    </script>
+
+</body>
+</html>
